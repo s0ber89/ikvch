@@ -43,7 +43,7 @@ namespace ikvch
 			
 		}
 		
-		void Button1Click(object sender, EventArgs e)
+		private void Button1Click(object sender, EventArgs e)
 		{
 			
 			Control();
@@ -51,7 +51,7 @@ namespace ikvch
 			
 			myTimer.Tick += new EventHandler(GetDataTimer);
 
-			myTimer.Interval = 300000;
+			myTimer.Interval = 180000;
 			myTimer.Start();
 			
 			// Runs the timer, and raises the event.
@@ -63,18 +63,35 @@ namespace ikvch
             
 		}
 		
-		void GetDataTimer(Object myObject, EventArgs myEventArgs)
+		private void Alarm(bool status)
+		{
+			ToolStripMenuItem senecaMenuItem = (ToolStripMenuItem) senecaCom;
+			
+			foreach (ToolStripItem item in senecaMenuItem.DropDownItems)
+	        {
+	        	if(((ToolStripMenuItem)item).Checked)
+	        		this.portSeneca = new SerialPort(item.ToString(), 9600, Parity.None, 8, StopBits.One);
+	        }
+            
+			byte[] bOn = {0x01, 0x06, 0x00, 0x02, 0x02, 0x00, 0x29, 0x6A};
+			byte[] bOff = {0x01, 0x06, 0x00, 0x02, 0x01, 0xE0, 0x28, 0x12};
+			
+			portSeneca.Open();
+			portSeneca.Write((status == true ? bOn : bOff), 0, 8);
+            portSeneca.Close();
+		}
+		
+		private void GetDataTimer(Object myObject, EventArgs myEventArgs)
 		{
 			Control();
 			GetData();
 		}
 		
-		void Control()
+		private void Control()
         {
 			byte[] bb = {0x80};
 			
 			ToolStripMenuItem ikvchMenuItem = (ToolStripMenuItem) ikvchCom;
-			ToolStripMenuItem senecaMenuItem = (ToolStripMenuItem) senecaCom;
 			
 		    if (ikvchMenuItem != null)
 		    {
@@ -83,23 +100,14 @@ namespace ikvch
 		        	if(((ToolStripMenuItem)item).Checked)
 		        		this.port = new SerialPort(item.ToString(), 9600, Parity.None, 8, StopBits.One);
 		        }
-		        
-		        foreach (ToolStripItem item in senecaMenuItem.DropDownItems)
-		        {
-		        	if(((ToolStripMenuItem)item).Checked)
-		        		this.portSeneca = new SerialPort(item.ToString(), 9600, Parity.None, 8, StopBits.One);
-		        }
 		    }
-			
-			
-			
-			
+
 			port.Open();
             port.Write(bb, 0, 1);
             port.Close();
         }
         
-		void GetData()
+		private void GetData()
         {
             TextBox res = (TextBox) resultLog;
 			
@@ -130,48 +138,49 @@ namespace ikvch
 			}
 				
 			
-			string Log = "";
+			double Result = 0;
 				
-	            for(int i = 0; i < Count; i++)
-	            {
+            for(int i = 0; i < Count; i++)
+            {
 
-					int a = port.ReadByte();
-					IntArr.Add(a);
+				int a = port.ReadByte();
+				IntArr.Add(a);
+				
+				float myFloat = 0;
+				
+				if((i+1)%Row == 0)
+				{
 					
-					float myFloat = 0;
-					double Result = 0;
-					string Value = "";
-					if((i+1)%Row == 0)
+    				if(Day == String.Format("{0:X}", IntArr[2]) && Month == String.Format("{0:X}", IntArr[3]))
 					{
-						Value = "Day:" + Day + "^" + String.Format("{0:X}", IntArr[2]) + " Month:" + Month + "^" + String.Format("{0:X}", IntArr[3]);
-						
-						Log = String.Format("{0:X} ", IntArr[0]) + String.Format("{0:X} ", IntArr[1]) + String.Format("{0:X} ", IntArr[2]) + String.Format("{0:X} ", IntArr[3]) + Environment.NewLine;
-						
-						byte[] bytes = {Convert.ToByte(IntArr[7]), Convert.ToByte(IntArr[6]), Convert.ToByte(IntArr[5]), Convert.ToByte(IntArr[4])};
-        				
-						myFloat = BitConverter.ToSingle(bytes, 0) / 2;
-        				Result = Math.Round(myFloat, 3);
-        				
-        				if(Day == String.Format("{0:X}", IntArr[2]) && Month == String.Format("{0:X}", IntArr[3]))
-						{
-        					if(Hour == String.Format("{0:X}", IntArr[0]) && MinuteSearch <= int.Parse(String.Format("{0:X}", IntArr[1])))
-        					{ 
-								res.Text += Result + "^" + MinuteSearch + ":" + int.Parse(String.Format("{0:X}", IntArr[1])) +  Environment.NewLine;
-								lblRes.Text = String.Format("{0:X}", IntArr[2]) + "-" + String.Format("{0:X}", IntArr[3]) + " " + String.Format("{0:X}", IntArr[0]) + ":" + String.Format("{0:X}", IntArr[1]) + " Значение: " + Result;
-        					}
-						}
-        				
-        				IntArr.RemoveRange(0, 8);
+    					if(Hour == String.Format("{0:X}", IntArr[0]) && MinuteSearch <= int.Parse(String.Format("{0:X}", IntArr[1])))
+    					{ 
+							byte[] bytes = {Convert.ToByte(IntArr[7]), Convert.ToByte(IntArr[6]), Convert.ToByte(IntArr[5]), Convert.ToByte(IntArr[4])};
+    						myFloat = BitConverter.ToSingle(bytes, 0) / 2;
+    						Result = Math.Round(myFloat, 3);
+    						
+    						res.Text += String.Format("{0:X} ", IntArr[0]) + String.Format("{0:X} ", IntArr[1]) + String.Format("{0:X} ", IntArr[2]) + String.Format("{0:X} ", IntArr[3]) + String.Format("{0:X} ", IntArr[4]) + String.Format("{0:X} ", IntArr[5])  + String.Format("{0:X} ", IntArr[6]) + String.Format("{0:X} ", IntArr[7]) + Environment.NewLine;
+    						lblRes.Text = String.Format("{0:X}", IntArr[2]) + "-" + String.Format("{0:X}", IntArr[3]) + " " + String.Format("{0:X}", IntArr[0]) + ":" + String.Format("{0:X}", IntArr[1]) + " Значение: " + Result.ToString();
+    					}
 					}
-					
-					
-					
-					progressBar1.Value++;
-         	
-	            }
+    				
+    				IntArr.RemoveRange(0, 8);
+				}
+				
+				
+				
+				progressBar1.Value++;
+     	
+            }
+            
+            if(Result > 0)
+            	Alarm(true);
+            else 
+            	Alarm(false);
 
             port.Close();
-
+			
+            progressBar1.Value = 0;
         }
 		
 			
@@ -192,5 +201,10 @@ namespace ikvch
             
             selectedItem.CheckState = CheckState.Checked;
         }
+		
+		private void MainFormFormClosing(object sender, FormClosingEventArgs e)
+		{
+			myTimer.Stop();
+		}
 	}
 }

@@ -101,9 +101,10 @@ namespace ikvch
 			// 
 			// lblInfo
 			// 
+			this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblInfo.Location = new System.Drawing.Point(129, 24);
 			this.lblInfo.Name = "lblInfo";
-			this.lblInfo.Size = new System.Drawing.Size(144, 20);
+			this.lblInfo.Size = new System.Drawing.Size(313, 20);
 			this.lblInfo.TabIndex = 5;
 			this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
@@ -240,6 +241,7 @@ namespace ikvch
 			this.MainMenuStrip = this.comMenu;
 			this.Name = "MainForm";
 			this.Text = "ИКВЧ-ВЗ и SENECA";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
 			this.comMenu.ResumeLayout(false);
 			this.comMenu.PerformLayout();
 			this.ResumeLayout(false);
