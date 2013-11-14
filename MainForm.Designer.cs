@@ -54,6 +54,12 @@ namespace ikvch
 			this.senecaCom3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.senecaCom4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.senecaCom5 = new System.Windows.Forms.ToolStripMenuItem();
+			this.lblLastDate = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.lblIkvchConnect = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.lblSenecaConnect = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.comMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -73,12 +79,12 @@ namespace ikvch
 			this.resultLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 									| System.Windows.Forms.AnchorStyles.Left) 
 									| System.Windows.Forms.AnchorStyles.Right)));
-			this.resultLog.Location = new System.Drawing.Point(12, 47);
+			this.resultLog.Location = new System.Drawing.Point(12, 115);
 			this.resultLog.MaxLength = 327670000;
 			this.resultLog.Multiline = true;
 			this.resultLog.Name = "resultLog";
 			this.resultLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.resultLog.Size = new System.Drawing.Size(430, 224);
+			this.resultLog.Size = new System.Drawing.Size(430, 156);
 			this.resultLog.TabIndex = 2;
 			// 
 			// progressBar1
@@ -92,7 +98,7 @@ namespace ikvch
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(12, 24);
+			this.label1.Location = new System.Drawing.Point(12, 64);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(110, 20);
 			this.label1.TabIndex = 4;
@@ -102,7 +108,7 @@ namespace ikvch
 			// lblInfo
 			// 
 			this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblInfo.Location = new System.Drawing.Point(129, 24);
+			this.lblInfo.Location = new System.Drawing.Point(129, 64);
 			this.lblInfo.Name = "lblInfo";
 			this.lblInfo.Size = new System.Drawing.Size(313, 20);
 			this.lblInfo.TabIndex = 5;
@@ -227,11 +233,73 @@ namespace ikvch
 			this.senecaCom5.Text = "COM5";
 			this.senecaCom5.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
 			// 
+			// lblLastDate
+			// 
+			this.lblLastDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblLastDate.Location = new System.Drawing.Point(129, 92);
+			this.lblLastDate.Name = "lblLastDate";
+			this.lblLastDate.Size = new System.Drawing.Size(313, 20);
+			this.lblLastDate.TabIndex = 8;
+			this.lblLastDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(12, 92);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(110, 20);
+			this.label3.TabIndex = 7;
+			this.label3.Text = "Последний запрос:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// lblIkvchConnect
+			// 
+			this.lblIkvchConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblIkvchConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblIkvchConnect.Location = new System.Drawing.Point(129, 24);
+			this.lblIkvchConnect.Name = "lblIkvchConnect";
+			this.lblIkvchConnect.Size = new System.Drawing.Size(313, 20);
+			this.lblIkvchConnect.TabIndex = 10;
+			this.lblIkvchConnect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(12, 24);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(110, 20);
+			this.label4.TabIndex = 9;
+			this.label4.Text = "ИКВЧ-ВЗ:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// lblSenecaConnect
+			// 
+			this.lblSenecaConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSenecaConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblSenecaConnect.Location = new System.Drawing.Point(129, 44);
+			this.lblSenecaConnect.Name = "lblSenecaConnect";
+			this.lblSenecaConnect.Size = new System.Drawing.Size(313, 20);
+			this.lblSenecaConnect.TabIndex = 12;
+			this.lblSenecaConnect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(12, 44);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(110, 20);
+			this.label6.TabIndex = 11;
+			this.label6.Text = "SENECA:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(454, 309);
+			this.Controls.Add(this.lblSenecaConnect);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.lblIkvchConnect);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.lblLastDate);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.lblInfo);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.progressBar1);
@@ -247,6 +315,12 @@ namespace ikvch
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label lblSenecaConnect;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label lblIkvchConnect;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label lblLastDate;
 		private System.Windows.Forms.ToolStripMenuItem senecaCom5;
 		private System.Windows.Forms.ToolStripMenuItem senecaCom4;
 		private System.Windows.Forms.ToolStripMenuItem senecaCom3;
